@@ -1,0 +1,133 @@
+.layout {
+  background-image: url("https://basecamplive.com/wp-content/uploads/2023/02/books.jpeg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: rgb(96, 49, 3);
+}
+
+.formLayout {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+  height: 70%;
+  margin: auto;
+  border-radius: 10px;
+  background-color: burlywood;
+}
+
+.titlePanel {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+  height: 40px;
+  margin: 40px;
+  margin-bottom: 0;
+  padding: 5px 15px;
+  border-radius: 10px;
+  align-items: center;
+  background-color: darkgoldenrod;
+}
+
+.backButton {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+.backButton:hover {
+  color: burlywood;
+}
+
+.addNewButton {
+  display: inline-block;
+  align-items: center;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+  background-color: burlywood;
+  color: rgb(96, 49, 3);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.addNewButton:hover {
+  color: darkgoldenrod;
+}
+
+.tablediv {
+  text-align: center;
+  width: 65%;
+  height: 70%;
+  margin: 0;
+  padding: 15px 15px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.table {
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+th {
+  border-radius: 10px;
+  padding: 5px;
+}
+
+td {
+  padding: 5px;
+}
+
+.tableheader {
+  background-color: darkgoldenrod;
+}
+
+.editButton {
+  display: inline-block;
+  align-items: center;
+  border: none;
+  border-radius: 4px;
+  width: 60%;
+  padding: 2px;
+  text-align: center;
+  background-color: darkgoldenrod;
+  color: rgb(96, 49, 3);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.editButton:hover {
+  color: burlywood;
+}
+
+.removeButton {
+  display: inline-block;
+  align-items: center;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  padding: 2px;
+  text-align: center;
+  background-color: darkgoldenrod;
+  color: rgb(96, 49, 3);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.removeButton:hover {
+  color: burlywood;
+}
