@@ -49,7 +49,7 @@ export default function Search() {
 
   return (
     <div>
-      <SearchOutlined onClick={showModal} className={styles.search} />
+      <SearchOutlined onClick={showModal} className={styles.searchIcon} />
 
       <Modal
         title="Search"

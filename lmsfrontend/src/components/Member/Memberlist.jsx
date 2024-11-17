@@ -44,7 +44,7 @@ export default function Memberlist() {
           <Link to="/newmember">
             <button className={styles.addNewButton}>Add new member</button>
           </Link>
-          <Link to="/" className={styles.backButton}>
+          <Link to="/home" className={styles.backButton}>
             <CloseCircleFilled />
           </Link>
         </h3>

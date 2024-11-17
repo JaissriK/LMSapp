@@ -1,3 +1,4 @@
+import { LogoutOutlined } from "@ant-design/icons";
 import styles from "./header.module.css";
 import Search from "./Search";
 import { Link } from "react-router-dom";
@@ -5,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <div className={styles.header}>
-      <Link to="/" className={styles.logo}>
+      <Link to="/home" className={styles.logo}>
         <span>JK Library</span>
       </Link>
       <Search />
@@ -26,6 +27,9 @@ export default function Header() {
           </button>
         </Link>
       </div>
+      <Link to="/">
+        <LogoutOutlined className={styles.logout} />
+      </Link>
     </div>
   );
 }

@@ -45,7 +45,7 @@ export default function Rentallist() {
           <Link to="/newrental">
             <button className={styles.addNewButton}>Add new rental</button>
           </Link>
-          <Link to="/" className={styles.backButton}>
+          <Link to="/home" className={styles.backButton}>
             <CloseCircleFilled />
           </Link>
         </h3>

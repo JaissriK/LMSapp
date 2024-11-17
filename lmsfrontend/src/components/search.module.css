@@ -1,6 +1,10 @@
+.searchIcon {
+  color: rgb(96, 49, 3);
+}
+
 .search {
   display: inline-block;
-  background-color: #f7ca18;
+  background-color: white;
   border: none;
   width: 300px;
   padding: 0 auto;
@@ -23,7 +27,8 @@ search:hover {
   border-radius: 4px;
   width: 15%;
   text-align: center;
-  background-color: #f7ca18;
+  background-color: white;
+  box-shadow: 0 4px 6px rgb(0, 0, 0, 0.1);
   color: rgb(96, 49, 3);
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;

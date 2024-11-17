@@ -12,23 +12,27 @@ import Header from "./components/Header";
 import EditMember from "./components/Member/EditMember";
 import AddRental from "./components/Rental/AddRental";
 import EditRental from "./components/Rental/EditRental";
+import Login from "./components/Login";
+import Content from "./components/Content";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/books" element={<Booklist />} />
-        <Route path="/newbook" element={<AddBook />} />
-        <Route path="/books/:bookid/edit" element={<EditBook />} />
-        <Route path="/members" element={<Memberlist />} />
-        <Route path="/newmember" element={<AddMember />} />
-        <Route path="/members/:memberid/edit" element={<EditMember />} />
-        <Route path="/rentals" element={<Rentallist />} />
-        <Route path="/newrental" element={<AddRental />} />
-        <Route path="/rentals/:rentalid/edit" element={<EditRental />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="/" element={<Login />} />
+        <Route element={<Content />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/books" element={<Booklist />} />
+          <Route path="/newbook" element={<AddBook />} />
+          <Route path="/books/:bookid/edit" element={<EditBook />} />
+          <Route path="/members" element={<Memberlist />} />
+          <Route path="/newmember" element={<AddMember />} />
+          <Route path="/members/:memberid/edit" element={<EditMember />} />
+          <Route path="/rentals" element={<Rentallist />} />
+          <Route path="/newrental" element={<AddRental />} />
+          <Route path="/rentals/:rentalid/edit" element={<EditRental />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

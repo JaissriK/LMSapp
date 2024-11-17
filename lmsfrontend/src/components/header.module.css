@@ -30,3 +30,7 @@
 .logo:hover {
   color: grey;
 }
+
+.logout {
+  color: rgb(96, 49, 3);
+}

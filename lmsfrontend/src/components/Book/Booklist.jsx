@@ -50,7 +50,7 @@ export default function Booklist() {
           <Link to="/newbook">
             <Button className={styles.addNewButton}>Add new book</Button>
           </Link>
-          <Link to="/" className={styles.backButton}>
+          <Link to="/home" className={styles.backButton}>
             <CloseCircleFilled />
           </Link>
         </h3>

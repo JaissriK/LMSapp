@@ -19,3 +19,17 @@
   width: 100%;
   background: rgba(150, 75, 0, 0.5);
 }
+
+.formLayout {
+  padding: 50px;
+  border-radius: 10px;
+
+  background-color: rgb(223, 174, 16);
+}
+
+.loginTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f7ca18;
+}
