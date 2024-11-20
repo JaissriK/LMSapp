@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Flex } from "antd";
 import styles from "./home.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import Signup from "./Signup";
+import axios from "axios";
 
-export default function Login() {
-  const onFinish = (values) => {
+export default function Login({ setIsLoggedIn }) {
+  const [errorMessage, setErrorMessage] = useState("");
+  let navigate = useNavigate();
+
+  /*const handleSubmit = async (value) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const form = {
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+  };*/
+
+  const onFinish = async (values) => {
+    const { data } = await axios.post(
+      "http://localhost:3000/user/signin",
+      values
+    );
+    if (data.status === parseInt("401")) {
+      setErrorMessage(data.response);
+    } else {
+      localStorage.setItem("token", data.token);
+      setIsLoggedIn(true);
+      navigate("/home");
+    }
     console.log("Received values of form: ", values);
   };
 
@@ -24,17 +50,18 @@ export default function Login() {
             maxWidth: 360,
           }}
           onFinish={onFinish}
+          //onSubmit={handleSubmit}
         >
           <Form.Item
-            name="username"
+            name="email"
             rules={[
               {
                 required: true,
-                message: "Please input your Username!",
+                message: "Please input your Email!",
               },
             ]}
           >
-            <Input prefix={<UserOutlined />} placeholder="Username" />
+            <Input prefix={<UserOutlined />} placeholder="Email" />
           </Form.Item>
           <Form.Item
             name="password"
@@ -64,7 +91,10 @@ export default function Login() {
             <Button block type="primary" htmlType="submit">
               Log in
             </Button>
-            or <a href="">Register now!</a>
+          </Form.Item>
+
+          <Form.Item>
+            <Signup />
           </Form.Item>
         </Form>
       </div>

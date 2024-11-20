@@ -1,21 +1,41 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../add.module.css";
 import axios from "axios";
+import { Select } from "antd";
 
 export default function AddRental() {
   const [addrental, setAddrental] = useState({
     rentalid: "",
     memberid: "",
-    bookid: "",
+    bookname: "",
     rentstart: "",
     rentend: "",
     rentreturn: "false",
   });
+  const [booklist, setBooklist] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/book/allbooks")
+      .then((response) => setBooklist(response.data.bookData))
+      .catch((error) => console.error("Error fetching book data:", error));
+  }, []);
+
+  const books = booklist.map((book) => ({
+    value: book.bookname,
+    label: book.bookname,
+  }));
+  console.log(books);
+
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
 
   const handleInput = (e) => {
     e.persist();
     setAddrental({ ...addrental, [e.target.name]: e.target.value });
+    console.log(`selected ${e.target.value}`);
   };
 
   const handleSubmit = async (e) => {
@@ -33,7 +53,7 @@ export default function AddRental() {
     setAddrental({
       rentalid: "",
       memberid: "",
-      bookid: "",
+      bookname: "",
       rentstart: "",
       rentend: "",
     });
@@ -65,13 +85,18 @@ export default function AddRental() {
             name="memberid"
             value={addrental.memberid}
           />
-          <label>Book ID</label>
-          <input
+          <label>Book Name</label>
+          <Select
+            showSearch
+            placeholder="Select a Book"
+            optionFilterProp="label"
+            onSearch={onSearch}
             className={styles.ipField}
             onChange={handleInput}
             type="text"
             name="bookid"
-            value={addrental.bookid}
+            value={addrental.bookname}
+            options={books}
           />
           <label>Rent Start Date</label>
           <input

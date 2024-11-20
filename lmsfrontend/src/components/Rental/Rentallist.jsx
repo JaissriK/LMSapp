@@ -3,7 +3,11 @@ import styles from "../list.module.css";
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 import dateFormat from "dateformat";
-import { CloseCircleFilled } from "@ant-design/icons";
+import {
+  CloseCircleFilled,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 
 export default function Rentallist() {
   const [rentallist, setRentallist] = useState([]);
@@ -75,19 +79,14 @@ export default function Rentallist() {
                     <td>{item.rentreturn.toString()}</td>
                     <td>
                       <Link to={`/rentals/${item.rentalid}/edit`}>
-                        <button className={styles.removeButton} type="button">
-                          Edit
-                        </button>
+                        <EditOutlined className={styles.removeButton} />
                       </Link>
                     </td>
                     <td>
-                      <button
+                      <DeleteOutlined
                         onClick={(e) => deleteRental(e, item.id)}
                         className={styles.removeButton}
-                        type="button"
-                      >
-                        Remove
-                      </button>
+                      />
                     </td>
                   </tr>
                 ))}

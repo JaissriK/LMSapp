@@ -3,7 +3,11 @@ import styles from "../list.module.css";
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "antd";
-import { CloseCircleFilled } from "@ant-design/icons";
+import {
+  CloseCircleFilled,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { Pagination } from "antd";
 
 export default function Booklist() {
@@ -78,19 +82,14 @@ export default function Booklist() {
                     <td>{item.copies}</td>
                     <td>
                       <Link to={`/books/${item.bookid}/edit`}>
-                        <button className={styles.editButton} type="button">
-                          Edit
-                        </button>
+                        <EditOutlined className={styles.editButton} />
                       </Link>
                     </td>
                     <td>
-                      <button
+                      <DeleteOutlined
                         onClick={(e) => deleteBook(e, item.id)}
                         className={styles.removeButton}
-                        type="button"
-                      >
-                        Remove
-                      </button>
+                      />
                     </td>
                   </tr>
                 ))}

@@ -22,29 +22,45 @@ export default function Search() {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     async function fetchBook() {
       const res = await fetch(`http://localhost:3000/book/allbooks`);
       //const data = await res.json();
       setData((await res.json()).bookData);
+      setSearchresults((await res.json()).bookData);
     }
     fetchBook();
+  }, []);*/
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/book/allbooks`)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.bookData);
+        setSearchresults(data.bookData);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
-  const handleChange = (value) => {
-    setQuery(value);
+  const handleChange = (e) => {
+    const searchTerm = e.target.value;
+    setQuery(searchTerm);
+    console.log(e.target.value);
+    console.log(searchTerm);
+    setSearchresults(
+      data.filter(
+        (data) =>
+          data.bookid.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          data.bookname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          data.authorname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          data.genre.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+    //console.log(setSearchresults);
   };
 
   const search = async (e) => {
     e.preventDefault();
-    setSearchresults(
-      await data.filter(
-        (data) =>
-          data.bookname.toLowerCase() === query.toLowerCase() ||
-          data.authorname.toLowerCase() === query.toLowerCase() ||
-          data.genre.toLowerCase() === query.toLowerCase()
-      )
-    );
   };
 
   return (
@@ -58,17 +74,14 @@ export default function Search() {
         onCancel={handleCancel}
         destroyOnClose={true}
       >
-        <form onSubmit={search}>
+        <form>
           <input
             className={styles.search}
             value={query}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={handleChange}
             type="search"
             placeholder="Search a book"
           />
-          <button type="submit" className={styles.submitButton}>
-            Search
-          </button>
         </form>
         <div className={styles.layout}>
           <div className={styles.formLayout}>

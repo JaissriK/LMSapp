@@ -21,6 +21,7 @@ export class BookController {
   async createBook(@Res() response, @Body() createBookDto: CreateBookDto) {
     try {
       const newBook = await this.bookService.createBook(createBookDto);
+      console.log(newBook);
       return response.status(HttpStatus.CREATED).json({
         message: 'Book has been created successfully',
         newBook,

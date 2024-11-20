@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import styles from "../list.module.css";
 import { React, useEffect, useState } from "react";
 import axios from "axios";
-import { CloseCircleFilled } from "@ant-design/icons";
+import {
+  CloseCircleFilled,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 
 export default function Memberlist() {
   const [memberlist, setMemberlist] = useState([]);
@@ -70,19 +74,14 @@ export default function Memberlist() {
                     <td>{item.phone}</td>
                     <td>
                       <Link to={`/members/${item.memberid}/edit`}>
-                        <button className={styles.removeButton} type="button">
-                          Edit
-                        </button>
+                        <EditOutlined className={styles.removeButton} />
                       </Link>
                     </td>
                     <td>
-                      <button
+                      <DeleteOutlined
                         onClick={(e) => deleteMember(e, item.id)}
                         className={styles.removeButton}
-                        type="button"
-                      >
-                        Remove
-                      </button>
+                      />
                     </td>
                   </tr>
                 ))}

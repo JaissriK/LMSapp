@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,6 +11,14 @@ import { RentalController } from './controller/rental.controller';
 import { RentalService } from './service/rental.service';
 import { MemberController } from './controller/member.controller';
 import { MemberService } from './service/member.service';
+import { JwtModule } from '@nestjs/jwt';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { secret } from './utils/constants';
+import { join } from 'path/posix';
+import { User } from './Entity/user.entity';
+import { UsersService } from './service/users.service';
+import { UserController } from './controller/user.controller';
+import { isAuthenticated } from './app.middleware';
 
 @Module({
   imports: [
@@ -28,6 +36,15 @@ import { MemberService } from './service/member.service';
     TypeOrmModule.forFeature([Book]),
     TypeOrmModule.forFeature([Member]),
     TypeOrmModule.forFeature([Rental]),
+    TypeOrmModule.forFeature([User]),
+
+    JwtModule.register({
+      secret,
+      signOptions: { expiresIn: '2h' },
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
   ],
 
   controllers: [
@@ -35,7 +52,18 @@ import { MemberService } from './service/member.service';
     BookController,
     MemberController,
     RentalController,
+    UserController,
   ],
-  providers: [AppService, BookService, MemberService, RentalService],
+  providers: [
+    AppService,
+    BookService,
+    MemberService,
+    RentalService,
+    UsersService,
+  ],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(isAuthenticated);
+  }
+}

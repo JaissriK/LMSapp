@@ -100,7 +100,6 @@ td {
   width: 60%;
   padding: 2px;
   text-align: center;
-  background-color: darkgoldenrod;
   color: rgb(96, 49, 3);
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -109,7 +108,7 @@ td {
 }
 
 .editButton:hover {
-  color: burlywood;
+  color: darkgoldenrod;
 }
 
 .removeButton {
@@ -120,7 +119,6 @@ td {
   width: 100%;
   padding: 2px;
   text-align: center;
-  background-color: darkgoldenrod;
   color: rgb(96, 49, 3);
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -129,5 +127,5 @@ td {
 }
 
 .removeButton:hover {
-  color: burlywood;
+  color: darkgoldenrod;
 }
