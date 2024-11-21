@@ -9,10 +9,10 @@ export class Rental {
   rentalid: string;
 
   @Column()
-  memberid: string;
+  membername: string;
 
   @Column()
-  bookid: string;
+  bookname: string;
 
   @Column()
   rentstart: Date;

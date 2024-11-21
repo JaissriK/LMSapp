@@ -9,8 +9,8 @@ export default function EditRental() {
 
   const [addrental, setAddrental] = useState({
     rentalid: "",
-    memberid: "",
-    bookid: "",
+    membername: "",
+    bookname: "",
     rentstart: "",
     rentend: "",
     rentreturn: "false",
@@ -43,8 +43,8 @@ export default function EditRental() {
     }
     /*setAddrental({
       rentalid: "",
-      memberid: "",
-      bookid: "",
+      membername: "",
+      bookname: "",
       rentstart: "",
       rentend: "",
     });*/
@@ -68,21 +68,21 @@ export default function EditRental() {
             name="rentalid"
             value={addrental.rentalid}
           />
-          <label>Member ID</label>
+          <label>Member Name</label>
           <input
             className={styles.ipField}
             onChange={handleInput}
             type="text"
-            name="memberid"
-            value={addrental.memberid}
+            name="membername"
+            value={addrental.membername}
           />
-          <label>Book ID</label>
+          <label>Book Name</label>
           <input
             className={styles.ipField}
             onChange={handleInput}
             type="text"
-            name="bookid"
-            value={addrental.bookid}
+            name="bookname"
+            value={addrental.bookname}
           />
           <label>Rent Start Date</label>
           <input

@@ -8,6 +8,7 @@ import {
   DeleteOutlined,
   EditOutlined,
 } from "@ant-design/icons";
+import { ConfigProvider, Table } from "antd";
 
 export default function Rentallist() {
   const [rentallist, setRentallist] = useState([]);
@@ -41,6 +42,74 @@ export default function Rentallist() {
     //setAddbook({ bookid: "", bookname: "", authorname: "", copies: 0 });
   };
 
+  const columns = [
+    {
+      title: "Rental ID",
+      dataIndex: "rentalid",
+      key: "rentalid",
+    },
+    {
+      title: "Member Name",
+      dataIndex: "membername",
+      key: "membername",
+    },
+    {
+      title: "Book Name",
+      dataIndex: "bookname",
+      key: "bookname",
+    },
+    {
+      title: "Rent Start",
+      dataIndex: "rentstart",
+      key: "rentstart",
+    },
+    {
+      title: "Rent End",
+      key: "rentend",
+      dataIndex: "rentend",
+    },
+    {
+      title: "Returned?",
+      key: "rentreturn",
+      dataIndex: "rentreturn",
+    },
+    {
+      title: "Modify",
+      key: "modify",
+      dataIndex: "modify",
+    },
+    {
+      title: "Delete",
+      key: "delete",
+      dataIndex: "delete",
+    },
+  ];
+  const data = rentallist
+    .filter((item) => item.isActive === true)
+    .map((item) => ({
+      key: item.id,
+      rentalid: item.rentalid,
+      membername: item.membername,
+      bookname: item.bookname,
+      rentstart: dateFormat(item.rentstart, "dd/mm/yyyy"),
+      rentend: dateFormat(item.rentend, "dd/mm/yyyy"),
+      rentreturn: item.rentreturn.toString(),
+      modify: (
+        <Link to={`/rentals/${item.rentalid}/edit`}>
+          <EditOutlined className={styles.editButton} />
+        </Link>
+      ),
+      delete: (
+        <DeleteOutlined
+          onClick={(e) => deleteRental(e, item.id)}
+          className={styles.removeButton}
+        />
+      ),
+    }));
+  console.log(data);
+
+  const [top, setTop] = useState("topCenter");
+
   return (
     <div className={styles.layout}>
       <div className={styles.formLayout}>
@@ -54,7 +123,41 @@ export default function Rentallist() {
           </Link>
         </h3>
         <div className={styles.tablediv}>
-          <table className={styles.table}>
+          <ConfigProvider
+            theme={{
+              components: {
+                Table: {
+                  headerBg: "rgb(236, 224, 192)",
+                  colorBgContainer: "rgb(236, 224, 192)",
+                  padding: 5,
+                  paddingXS: 5,
+                  paddingXXS: 1,
+                },
+                Pagination: {
+                  colorPrimary: "rgb(96, 49, 3)",
+                  colorPrimaryHover: "rgb(222, 184, 135)",
+                  colorBgContainer: "rgb(236, 224, 192)",
+                },
+              },
+            }}
+          >
+            <Table
+              columns={columns}
+              dataSource={data}
+              size="small"
+              pagination={{
+                position: [top],
+                pageSize: 5,
+              }}
+            />
+          </ConfigProvider>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/*<table className={styles.table}>
             <tbody>
               <tr className={styles.tableheader}>
                 <th>Rental ID</th>
@@ -91,9 +194,4 @@ export default function Rentallist() {
                   </tr>
                 ))}
             </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-}
+          </table>*/

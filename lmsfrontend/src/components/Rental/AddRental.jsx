@@ -7,7 +7,7 @@ import { Select } from "antd";
 export default function AddRental() {
   const [addrental, setAddrental] = useState({
     rentalid: "",
-    memberid: "",
+    membername: "",
     bookname: "",
     rentstart: "",
     rentend: "",
@@ -22,11 +22,27 @@ export default function AddRental() {
       .catch((error) => console.error("Error fetching book data:", error));
   }, []);
 
-  const books = booklist.map((book) => ({
-    value: book.bookname,
-    label: book.bookname,
-  }));
-  console.log(books);
+  const books = booklist
+    .filter((book) => book.isActive === true)
+    .map((book) => ({
+      value:
+        book.bookname +
+        " - " +
+        book.authorname +
+        " - " +
+        book.genre +
+        " - " +
+        book.bookid,
+      label:
+        book.bookname +
+        " - " +
+        book.authorname +
+        " - " +
+        book.genre +
+        " - " +
+        book.bookid,
+    }));
+  //console.log(books);
 
   const onSearch = (value) => {
     console.log("search:", value);
@@ -35,7 +51,11 @@ export default function AddRental() {
   const handleInput = (e) => {
     e.persist();
     setAddrental({ ...addrental, [e.target.name]: e.target.value });
-    console.log(`selected ${e.target.value}`);
+  };
+
+  const handleDropdown = (value) => {
+    setAddrental({ ...addrental, ["bookname"]: value });
+    console.log(`selected ${value}`);
   };
 
   const handleSubmit = async (e) => {
@@ -52,7 +72,7 @@ export default function AddRental() {
     }
     setAddrental({
       rentalid: "",
-      memberid: "",
+      membername: "",
       bookname: "",
       rentstart: "",
       rentend: "",
@@ -77,13 +97,13 @@ export default function AddRental() {
             name="rentalid"
             value={addrental.rentalid}
           />
-          <label>Member ID</label>
+          <label>Member Name</label>
           <input
             className={styles.ipField}
             onChange={handleInput}
             type="text"
-            name="memberid"
-            value={addrental.memberid}
+            name="membername"
+            value={addrental.membername}
           />
           <label>Book Name</label>
           <Select
@@ -92,10 +112,10 @@ export default function AddRental() {
             optionFilterProp="label"
             onSearch={onSearch}
             className={styles.ipField}
-            onChange={handleInput}
+            onChange={handleDropdown}
             type="text"
-            name="bookid"
-            value={addrental.bookname}
+            name="bookname"
+            //value={addrental.bookname}
             options={books}
           />
           <label>Rent Start Date</label>

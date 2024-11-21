@@ -2,27 +2,23 @@ import { Link } from "react-router-dom";
 import styles from "../list.module.css";
 import { React, useEffect, useState } from "react";
 import axios from "axios";
-import { Button } from "antd";
+import { Button, ConfigProvider } from "antd";
 import {
   CloseCircleFilled,
   DeleteOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { Pagination } from "antd";
+import { Table } from "antd";
 
 export default function Booklist() {
   const [booklist, setBooklist] = useState([]);
-  const [page, setPage] = useState(1);
-  const PAGE_SIZE = 5;
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/book/allbooks/", {
-        params: { page, limit: PAGE_SIZE },
-      })
+      .get("http://localhost:3000/book/allbooks/")
       .then((response) => setBooklist(response.data.bookData))
       .catch((error) => console.error("Error fetching book data:", error));
-  }, [page]);
+  }, []);
 
   //console.log(booklist, setBooklist);
 
@@ -46,6 +42,69 @@ export default function Booklist() {
     //setAddbook({ bookid: "", bookname: "", authorname: "", copies: 0 });
   };
 
+  const columns = [
+    {
+      title: "Book ID",
+      dataIndex: "bookid",
+      key: "bookid",
+      //render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Book Title",
+      dataIndex: "bookname",
+      key: "bookname",
+    },
+    {
+      title: "Author",
+      dataIndex: "authorname",
+      key: "authorname",
+    },
+    {
+      title: "Genre",
+      key: "genre",
+      dataIndex: "genre",
+    },
+    {
+      title: "Copies",
+      key: "copies",
+      dataIndex: "copies",
+    },
+    {
+      title: "Modify",
+      key: "modify",
+      dataIndex: "modify",
+    },
+    {
+      title: "Delete",
+      key: "delete",
+      dataIndex: "delete",
+    },
+  ];
+  const data = booklist
+    .filter((item) => item.isActive === true)
+    .map((item) => ({
+      key: item.id,
+      bookid: item.bookid,
+      bookname: item.bookname,
+      authorname: item.authorname,
+      genre: item.genre,
+      copies: item.copies,
+      modify: (
+        <Link to={`/books/${item.bookid}/edit`}>
+          <EditOutlined className={styles.editButton} />
+        </Link>
+      ),
+      delete: (
+        <DeleteOutlined
+          onClick={(e) => deleteBook(e, item.id)}
+          className={styles.removeButton}
+        />
+      ),
+    }));
+  console.log(data);
+
+  const [top, setTop] = useState("topCenter");
+
   return (
     <div className={styles.layout}>
       <div className={styles.formLayout}>
@@ -59,7 +118,41 @@ export default function Booklist() {
           </Link>
         </h3>
         <div className={styles.tablediv}>
-          <table className={styles.table}>
+          <ConfigProvider
+            theme={{
+              components: {
+                Table: {
+                  headerBg: "rgb(236, 224, 192)",
+                  colorBgContainer: "rgb(236, 224, 192)",
+                  padding: 5,
+                  paddingXS: 5,
+                  paddingXXS: 1,
+                },
+                Pagination: {
+                  colorPrimary: "rgb(96, 49, 3)",
+                  colorPrimaryHover: "rgb(222, 184, 135)",
+                  colorBgContainer: "rgb(236, 224, 192)",
+                },
+              },
+            }}
+          >
+            <Table
+              columns={columns}
+              dataSource={data}
+              size="small"
+              pagination={{
+                position: [top],
+                pageSize: 5,
+              }}
+            />
+          </ConfigProvider>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/*<table className={styles.table}>
             <tbody>
               <tr className={styles.tableheader}>
                 <th>Book ID</th>
@@ -94,7 +187,7 @@ export default function Booklist() {
                   </tr>
                 ))}
             </tbody>
-          </table>
+          </table> 
           {booklist.length / PAGE_SIZE > 1 && (
             <Pagination
               size="small"
@@ -104,9 +197,4 @@ export default function Booklist() {
               pageSize={PAGE_SIZE}
               onChange={(page) => setPage(page)}
             />
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
+          )}*/

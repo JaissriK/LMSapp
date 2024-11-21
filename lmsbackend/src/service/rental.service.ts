@@ -13,8 +13,8 @@ export class RentalService {
   async createRental(createRentalDto: CreateRentalDto): Promise<Rental> {
     const newRental = await this.rentalRepository.create({
       rentalid: createRentalDto.rentalid,
-      memberid: createRentalDto.memberid,
-      bookid: createRentalDto.bookid,
+      membername: createRentalDto.membername,
+      bookname: createRentalDto.bookname,
       rentstart: createRentalDto.rentstart,
       rentend: createRentalDto.rentend,
       rentreturn: createRentalDto.rentreturn,

@@ -12,11 +12,11 @@ export class CreateRentalDto {
 
   @IsString()
   @IsNotEmpty()
-  memberid: string;
+  membername: string;
 
   @IsString()
   @IsNotEmpty()
-  bookid: string;
+  bookname: string;
 
   @IsDateString()
   @IsNotEmpty()

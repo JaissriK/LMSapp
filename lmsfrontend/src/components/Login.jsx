@@ -19,10 +19,10 @@ export default function Login({ setIsLoggedIn }) {
     };
   };*/
 
-  const onFinish = async (values) => {
+  const onFinish = async (value) => {
     const { data } = await axios.post(
       "http://localhost:3000/user/signin",
-      values
+      value
     );
     if (data.status === parseInt("401")) {
       setErrorMessage(data.response);
@@ -31,7 +31,7 @@ export default function Login({ setIsLoggedIn }) {
       setIsLoggedIn(true);
       navigate("/home");
     }
-    console.log("Received values of form: ", values);
+    console.log("Received values of form: ", value);
   };
 
   return (

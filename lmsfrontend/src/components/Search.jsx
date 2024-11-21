@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import styles from "./search.module.css";
-import { Button, Modal } from "antd";
+import { Button, ConfigProvider, Modal } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
 export default function Search() {
@@ -66,53 +66,63 @@ export default function Search() {
   return (
     <div>
       <SearchOutlined onClick={showModal} className={styles.searchIcon} />
-
-      <Modal
-        title="Search"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        destroyOnClose={true}
+      <ConfigProvider
+        theme={{
+          components: {
+            Modal: {
+              headerBg: "rgb(236, 224, 192)",
+              contentBg: "rgb(236, 224, 192)",
+            },
+          },
+        }}
       >
-        <form>
-          <input
-            className={styles.search}
-            value={query}
-            onChange={handleChange}
-            type="search"
-            placeholder="Search a book"
-          />
-        </form>
-        <div className={styles.layout}>
-          <div className={styles.formLayout}>
-            <div className={styles.tablediv}>
-              <table className={styles.table}>
-                <tbody>
-                  <tr className={styles.tableheader}>
-                    <th>Book ID</th>
-                    <th>Book Title</th>
-                    <th>Author</th>
-                    <th>Genre</th>
-                    <th>Copies</th>
-                  </tr>
-                  <tr></tr>
-                  {searchresults
-                    .filter((item) => item.isActive === true)
-                    .map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.bookid}</td>
-                        <td>{item.bookname}</td>
-                        <td>{item.authorname}</td>
-                        <td>{item.genre}</td>
-                        <td>{item.copies}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+        <Modal
+          title="Search"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          destroyOnClose={true}
+        >
+          <form>
+            <input
+              className={styles.search}
+              value={query}
+              onChange={handleChange}
+              type="search"
+              placeholder="Search a book"
+            />
+          </form>
+          <div className={styles.layout}>
+            <div className={styles.formLayout}>
+              <div className={styles.tablediv}>
+                <table className={styles.table}>
+                  <tbody>
+                    <tr className={styles.tableheader}>
+                      <th>Book ID</th>
+                      <th>Book Title</th>
+                      <th>Author</th>
+                      <th>Genre</th>
+                      <th>Copies</th>
+                    </tr>
+                    <tr></tr>
+                    {searchresults
+                      .filter((item) => item.isActive === true)
+                      .map((item) => (
+                        <tr key={item.id}>
+                          <td>{item.bookid}</td>
+                          <td>{item.bookname}</td>
+                          <td>{item.authorname}</td>
+                          <td>{item.genre}</td>
+                          <td>{item.copies}</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
+      </ConfigProvider>
     </div>
   );
 }
